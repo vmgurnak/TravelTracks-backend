@@ -1,6 +1,8 @@
-import dotenv from 'dotenv';
+// import dotenv from 'dotenv';
 
-dotenv.config();
+// dotenv.config();
+
+import 'dotenv/config';
 
 const env = (name, defaultValue) => {
   const value = process.env[name];

@@ -3,6 +3,7 @@ import pino from 'pino-http';
 import cors from 'cors';
 
 import env from './utils/env.js';
+import campersRouter from './routers/campersRouter.js';
 
 const PORT = env('PORT', 3000);
 
@@ -19,14 +20,7 @@ const startServer = () => {
   app.use(cors());
   app.use(express.json());
 
-  app.get('/campers', (req, res) => {
-    res.json({ message: 'Response from server route /campers' });
-  });
-
-  app.get('/campers/:id', (req, res) => {
-    const id = req.params.id;
-    res.json({ message: `Response from server route /campers/${id}` });
-  });
+  app.use('/api/campers', campersRouter);
 
   app.use('*', (req, res, next) => {
     res.status(404).json({ message: 'Route not found' });
