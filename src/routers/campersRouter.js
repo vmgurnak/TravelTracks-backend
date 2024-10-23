@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import ctrlWrapper from '../utils/ctrlWrapper';
+import ctrlWrapper from '../utils/ctrlWrapper.js';
 import isValiId from '../middlewares/isValidId.js';
 
 import {
