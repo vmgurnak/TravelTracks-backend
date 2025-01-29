@@ -7,7 +7,7 @@ import notFoundHundler from './middlewares/notFoundHandler.js';
 import env from './utils/env.js';
 import errorHandler from './middlewares/errorHandler.js';
 
-const PORT = env('PORT', 3000);
+const PORT = env('PORT', 4000);
 
 const startServer = () => {
   const app = express();

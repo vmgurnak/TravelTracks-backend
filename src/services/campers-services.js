@@ -10,7 +10,8 @@ export const deleteCamper = (filter) => traveltracks.findOneAndDelete(filter);
 
 export const upsertCamper = async (filter, data, option = {}) => {
   const result = await traveltracks.findOneAndUpdate(filter, data, {
-    new: true,
+    // new: true,
+    // runValidators: true,
     includeResultMetadata: true,
     ...option,
   });

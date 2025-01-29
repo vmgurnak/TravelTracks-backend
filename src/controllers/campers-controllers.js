@@ -12,8 +12,8 @@ export const getCampersController = async (req, res) => {
   const data = await getCampers();
   res.json({
     status: 200,
-    data,
     message: 'Success found campers',
+    data,
   });
 };
 

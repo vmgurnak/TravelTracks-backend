@@ -1,5 +1,7 @@
 import { Schema, model } from 'mongoose';
 
+import { mongooseSaveError, setUpdateSettings } from './hooks.js';
+
 import {
   TravelTracksForm,
   TravelTracksTransmission,
@@ -19,6 +21,8 @@ const travelTracksSchema = new Schema(
     rating: {
       type: Number,
       required: [true, 'rating is required'],
+      min: 1,
+      max: 5,
     },
     location: {
       type: String,
@@ -31,7 +35,7 @@ const travelTracksSchema = new Schema(
     form: {
       type: String,
       enum: TravelTracksForm,
-      default: 'panelTruck',
+      required: [true, 'form is required'],
     },
     length: {
       type: String,
@@ -129,8 +133,8 @@ const travelTracksSchema = new Schema(
   { versionKey: false, timestamps: true },
 );
 
-// travelTracksSchema.post('save', mongooseSaveError);
-// travelTracksSchema.pre('findOneAndUpdate', setUpdateSettings);
-// travelTracksSchema.post('findOneAndUpdate', mongooseSaveError);
+travelTracksSchema.post('save', mongooseSaveError);
+travelTracksSchema.pre('findOneAndUpdate', setUpdateSettings);
+travelTracksSchema.post('findOneAndUpdate', mongooseSaveError);
 
 export default model('traveltracks', travelTracksSchema);
