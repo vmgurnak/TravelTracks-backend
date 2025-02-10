@@ -20,7 +20,7 @@ const travelTracksSchema = new Schema(
     },
     rating: {
       type: Number,
-      required: [true, 'rating is required'],
+      required: [true, 'rating is required, min 1 max 5'],
       min: 1,
       max: 5,
     },
@@ -35,7 +35,10 @@ const travelTracksSchema = new Schema(
     form: {
       type: String,
       enum: TravelTracksForm,
-      required: [true, 'form is required'],
+      required: [
+        true,
+        'form is required, valid values panelTruck, fullyIntegrated, alcove',
+      ],
     },
     length: {
       type: String,
@@ -60,12 +63,18 @@ const travelTracksSchema = new Schema(
     transmission: {
       type: String,
       enum: TravelTracksTransmission,
-      required: [true, 'transmission is required'],
+      required: [
+        true,
+        'transmission is required, valid values manual, automatic',
+      ],
     },
     engine: {
       type: String,
       enum: TravelTracksEngine,
-      required: [true, 'engine is required'],
+      required: [
+        true,
+        'engine is required, valid values diesel, petrol, hybrid, electric',
+      ],
     },
     AC: {
       type: Boolean,
@@ -105,27 +114,44 @@ const travelTracksSchema = new Schema(
     },
     gallery: [
       {
-        thumb: String,
+        thumb: {
+          type: String,
+          required: [true, 'thumb is required'],
+        },
         original: String,
       },
       {
-        thumb: String,
+        thumb: {
+          type: String,
+          required: [true, 'thumb is required'],
+        },
         original: String,
       },
       {
-        thumb: String,
+        thumb: {
+          type: String,
+          required: [true, 'thumb is required'],
+        },
         original: String,
       },
     ],
     reviews: [
       {
         reviewer_name: String,
-        reviewer_rating: Number,
+        reviewer_rating: {
+          type: Number,
+          min: 1,
+          max: 5,
+        },
         comment: String,
       },
       {
         reviewer_name: String,
-        reviewer_rating: Number,
+        reviewer_rating: {
+          type: Number,
+          min: 1,
+          max: 5,
+        },
         comment: String,
       },
     ],
