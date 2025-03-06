@@ -14,6 +14,8 @@ export const camperAddShema = Joi.object({
     'any.required': 'price is required',
   }),
   rating: Joi.number().min(1).max(5).required().messages({
+    'number.min': 'rating min 1 max 5',
+    'number.max': 'rating min 1 max 5',
     'any.required': 'rating is required, min 1 max 5',
   }),
   location: Joi.string().required().messages({
@@ -26,6 +28,7 @@ export const camperAddShema = Joi.object({
     .valid(...TravelTracksForm)
     .required()
     .messages({
+      'string.valid': 'form valid values panelTruck, fullyIntegrated, alcove',
       'any.required':
         'form is required, valid values panelTruck, fullyIntegrated, alcove',
     }),
@@ -48,6 +51,7 @@ export const camperAddShema = Joi.object({
     .valid(...TravelTracksTransmission)
     .required()
     .messages({
+      'string.valid': 'transmission valid values manual, automatic',
       'any.required':
         'transmission is required, valid values manual, automatic',
     }),
@@ -55,6 +59,7 @@ export const camperAddShema = Joi.object({
     .valid(...TravelTracksEngine)
     .required()
     .messages({
+      'string.valid': 'engine valid values diesel, petrol, hybrid, electric',
       'any.required':
         'engine is required, valid values diesel, petrol, hybrid, electric',
     }),
@@ -96,10 +101,11 @@ export const camperAddShema = Joi.object({
   reviews: Joi.array().items(
     Joi.object({
       reviewer_name: Joi.string(),
-      reviewer_rating: Joi.number()
-        .min(1)
-        .max(5)
-        .messages({ 'any.required': 'rating min 1 max 5' }),
+      reviewer_rating: Joi.number().min(1).max(5).messages({
+        'any.required': 'rating min 1 max 5',
+        'number.min': 'rating min 1 max 5',
+        'number.max': 'rating min 1 max 5',
+      }),
       comment: Joi.string(),
     }),
   ),
@@ -108,16 +114,16 @@ export const camperAddShema = Joi.object({
 export const camperUpdateShema = Joi.object({
   name: Joi.string(),
   price: Joi.number(),
-  rating: Joi.number()
-    .min(1)
-    .max(5)
-    .messages({ 'any.required': 'rating min 1 max 5' }),
+  rating: Joi.number().min(1).max(5).messages({
+    'number.min': 'rating min 1 max 5',
+    'number.max': 'rating min 1 max 5',
+  }),
   location: Joi.string(),
   description: Joi.string(),
   form: Joi.string()
     .valid(...TravelTracksForm)
     .messages({
-      'any.required': 'form values panelTruck, fullyIntegrated, alcove',
+      'string.valid': 'form values panelTruck, fullyIntegrated, alcove',
     }),
   length: Joi.string(),
   width: Joi.string(),
@@ -126,11 +132,11 @@ export const camperUpdateShema = Joi.object({
   consumption: Joi.string(),
   transmission: Joi.string()
     .valid(...TravelTracksTransmission)
-    .messages({ 'any.required': 'transmission values manual, automatic' }),
+    .messages({ 'string.valid': 'transmission values manual, automatic' }),
   engine: Joi.string()
     .valid(...TravelTracksEngine)
     .messages({
-      'any.required': 'engine values diesel, petrol, hybrid, electric',
+      'string.valid': 'engine values diesel, petrol, hybrid, electric',
     }),
   AC: Joi.boolean(),
   bathroom: Joi.boolean(),
@@ -153,7 +159,10 @@ export const camperUpdateShema = Joi.object({
       reviewer_rating: Joi.number()
         .min(1)
         .max(5)
-        .messages({ 'any.required': 'rating min 1 max 5' }),
+        .messages({
+          'number.min': 'rating min 1 max 5',
+          'number.max': 'rating min 1 max 5',
+        }),
       comment: Joi.string(),
     }),
   ),
