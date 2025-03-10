@@ -1,6 +1,38 @@
 import traveltracks from '../db/models/TravelTracks.js';
 
-export const getCampers = () => traveltracks.find();
+import calcPaginationData from '../utils/calcPaginationData.js';
+
+// without pagination
+// export const getCampers = () => traveltracks.find();
+
+// with pagination
+export const getCampers = async ({ page, perPage }) => {
+  const skip = (page - 1) * perPage;
+
+  const databaseQuery = traveltracks.find();
+  const totalItems = await traveltracks
+    .find()
+    .merge(databaseQuery)
+    .countDocuments();
+
+  const items = await databaseQuery.skip(skip).limit(perPage);
+
+  const { totalPages, hasNextPage, hasPrevPage } = calcPaginationData({
+    total: totalItems,
+    perPage,
+    page,
+  });
+
+  return {
+    page,
+    perPage,
+    totalPages,
+    totalItems,
+    hasNextPage,
+    hasPrevPage,
+    items,
+  };
+};
 
 export const getCamperById = (id) => traveltracks.findById(id);
 

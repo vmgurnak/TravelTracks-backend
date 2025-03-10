@@ -8,8 +8,24 @@ import {
   upsertCamper,
 } from '../services/campers-services.js';
 
+import parsePaginationParams from '../utils/parsePaginationParams.js';
+
+// // without pagination
+// export const getCampersController = async (req, res) => {
+//   const data = await getCampers();
+//   res.json({
+//     status: 200,
+//     message: 'Success found campers',
+//     data,
+//   });
+// };
+
+// with pagination
 export const getCampersController = async (req, res) => {
-  const data = await getCampers();
+  const { query } = req;
+  const { page, perPage } = parsePaginationParams(query);
+
+  const data = await getCampers({ page, perPage });
   res.json({
     status: 200,
     message: 'Success found campers',
