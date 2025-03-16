@@ -9,6 +9,9 @@ import {
 } from '../services/campers-services.js';
 
 import parsePaginationParams from '../utils/parsePaginationParams.js';
+import parseSortParams from '../utils/parseSortParams.js';
+
+import { SortFieldList } from '../constants/travelTracks-constants.js';
 
 // // without pagination
 // export const getCampersController = async (req, res) => {
@@ -24,8 +27,9 @@ import parsePaginationParams from '../utils/parsePaginationParams.js';
 export const getCampersController = async (req, res) => {
   const { query } = req;
   const { page, perPage } = parsePaginationParams(query);
+  const { sortBy, sortOrder } = parseSortParams(query, SortFieldList);
 
-  const data = await getCampers({ page, perPage });
+  const data = await getCampers({ page, perPage, sortBy, sortOrder });
   res.json({
     status: 200,
     message: 'Success found campers',

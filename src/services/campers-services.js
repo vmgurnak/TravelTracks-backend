@@ -1,12 +1,47 @@
+import { sortOrderList } from '../constants/sortOrderList.js';
+import { SortFieldList } from '../constants/travelTracks-constants.js';
 import traveltracks from '../db/models/TravelTracks.js';
-
 import calcPaginationData from '../utils/calcPaginationData.js';
 
 // without pagination
 // export const getCampers = () => traveltracks.find();
 
-// with pagination
-export const getCampers = async ({ page, perPage }) => {
+// // with pagination
+// export const getCampers = async ({ page, perPage }) => {
+//   const skip = (page - 1) * perPage;
+
+//   const databaseQuery = traveltracks.find();
+//   const totalItems = await traveltracks
+//     .find()
+//     .merge(databaseQuery)
+//     .countDocuments();
+
+//   const items = await databaseQuery.skip(skip).limit(perPage);
+
+//   const { totalPages, hasNextPage, hasPrevPage } = calcPaginationData({
+//     total: totalItems,
+//     perPage,
+//     page,
+//   });
+
+//   return {
+//     page,
+//     perPage,
+//     totalPages,
+//     totalItems,
+//     hasNextPage,
+//     hasPrevPage,
+//     items,
+//   };
+// };
+
+// with pagination, with sort
+export const getCampers = async ({
+  page,
+  perPage,
+  sortBy = SortFieldList[0],
+  sortOrder = sortOrderList[0],
+}) => {
   const skip = (page - 1) * perPage;
 
   const databaseQuery = traveltracks.find();
@@ -15,7 +50,12 @@ export const getCampers = async ({ page, perPage }) => {
     .merge(databaseQuery)
     .countDocuments();
 
-  const items = await databaseQuery.skip(skip).limit(perPage);
+  const items = await databaseQuery
+    .skip(skip)
+    .limit(perPage)
+    .sort({
+      [sortBy]: sortOrder,
+    });
 
   const { totalPages, hasNextPage, hasPrevPage } = calcPaginationData({
     total: totalItems,
