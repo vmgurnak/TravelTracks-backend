@@ -1,4 +1,4 @@
-import { sortOrderList } from '../constants/sortOrderList.js';
+import { sortOrderList } from '../constants/index.js';
 
 const parseSortParams = ({ sortOrder, sortBy }, fieldList) => {
   const parsedSortOrder = sortOrderList.includes(sortOrder)

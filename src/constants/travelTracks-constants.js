@@ -6,4 +6,6 @@ export const TravelTracksTransmission = ['manual', 'automatic'];
 
 export const TravelTracksEngine = ['diesel', 'petrol', 'hybrid', 'electric'];
 
-export const SortFieldList = ['price'];
+export const SortFieldList = ['price', 'rating', 'location', 'form', 'engine'];
+
+export const typeTracksFormList = ['panelTruck', 'fullyIntegrated', 'alcove'];

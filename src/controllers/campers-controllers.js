@@ -10,6 +10,7 @@ import {
 
 import parsePaginationParams from '../utils/parsePaginationParams.js';
 import parseSortParams from '../utils/parseSortParams.js';
+import parseCamperFitlerParams from '../utils/parseCamperFilterParams.js';
 
 import { SortFieldList } from '../constants/travelTracks-constants.js';
 
@@ -23,13 +24,17 @@ import { SortFieldList } from '../constants/travelTracks-constants.js';
 //   });
 // };
 
-// with pagination
+// with pagination with sort
 export const getCampersController = async (req, res) => {
   const { query } = req;
   const { page, perPage } = parsePaginationParams(query);
   const { sortBy, sortOrder } = parseSortParams(query, SortFieldList);
+  const filter = parseCamperFitlerParams(query);
 
-  const data = await getCampers({ page, perPage, sortBy, sortOrder });
+  console.log('filter', filter);
+
+  const data = await getCampers({ page, perPage, sortBy, sortOrder, filter });
+
   res.json({
     status: 200,
     message: 'Success found campers',

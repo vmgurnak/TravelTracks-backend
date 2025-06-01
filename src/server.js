@@ -12,14 +12,19 @@ const PORT = env('PORT', 4000);
 const startServer = () => {
   const app = express();
 
+  const corsOption = {
+    origin: '*',
+    // optionsSuccessStatus: 200,
+  };
+
   const logger = pino({
     transport: {
       target: 'pino-pretty',
     },
   });
 
-  // app.use(logger);
-  app.use(cors());
+  app.use(logger);
+  app.use(cors(corsOption));
   app.use(express.json());
 
   app.use('/api/campers', campersRouter);

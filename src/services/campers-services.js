@@ -1,4 +1,4 @@
-import { sortOrderList } from '../constants/sortOrderList.js';
+import { sortOrderList } from '../constants/index.js';
 import { SortFieldList } from '../constants/travelTracks-constants.js';
 import traveltracks from '../db/models/TravelTracks.js';
 import calcPaginationData from '../utils/calcPaginationData.js';
@@ -37,6 +37,7 @@ import calcPaginationData from '../utils/calcPaginationData.js';
 
 // with pagination, with sort
 export const getCampers = async ({
+  filter,
   page,
   perPage,
   sortBy = SortFieldList[0],
@@ -45,6 +46,16 @@ export const getCampers = async ({
   const skip = (page - 1) * perPage;
 
   const databaseQuery = traveltracks.find();
+  if (filter.AC === true) {
+    databaseQuery.where('AC').equals(filter.AC);
+  }
+  if (filter.AC === false) {
+    databaseQuery.where('AC').equals(filter.AC);
+  }
+  if (filter.form) {
+    databaseQuery.where('form').equals(filter.form);
+  }
+
   const totalItems = await traveltracks
     .find()
     .merge(databaseQuery)
